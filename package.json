@@ -1,0 +1,21 @@
+{
+  "name": "holograph",
+  "version": "1.0.0",
+  "description": "Backend to interact with holographic graph",
+  "main": "api.holograph.js",
+  "scripts": {
+    "start": "node api.holograph.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hololens",
+    "hologram",
+    "graph"
+  ],
+  "author": "Camilo Gonzalez",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3"
+  }
+}
