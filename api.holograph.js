@@ -1,6 +1,10 @@
-var express = require('express');
 var env = require('dotenv').config();
+var bodyParser = require('body-parser');
+var express = require('express');
 var app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Routers
 var graphsRouter = require('./routers/graphs');
