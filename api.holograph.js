@@ -1,10 +1,12 @@
 var env = require('dotenv').config();
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 var express = require('express');
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(expressValidator());
 
 // Routers
 var graphsRouter = require('./routers/graphs');
