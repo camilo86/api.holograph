@@ -26,7 +26,7 @@ exports.createVertex = (req, res, next) => {
       });
     }
 
-    req.case.graph.verticies.push(vertex.id);
+    req.case.graph.vertices.push(vertex.id);
     req.case.save((error) => {
       if(error) {
         return next({
@@ -42,3 +42,10 @@ exports.createVertex = (req, res, next) => {
     });
   });
 };
+
+/**
+ * Gets all vertices in case
+ */
+exports.getVertices = (req, res, next) => {
+  return res.json(req.vertices);
+}; 
