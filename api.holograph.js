@@ -18,7 +18,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
+// Routers
+var casesRouter = require('./routers/cases');
 
+app.use('/v1/cases', casesRouter);
 
 // Error handler
 app.use((err, req, res, next) => {
@@ -33,3 +36,5 @@ app.use((err, req, res, next) => {
 var listener = app.listen(process.env.PORT, () => {
   console.log('Holograph API running in port ' + listener.address().port);
 });
+
+module.exports = app;
