@@ -51,3 +51,14 @@ exports.getCases = (req, res, next) => {
     return res.json(cases);
   });
 };
+
+/**
+ * Get a single case
+ */
+exports.getCase = (req, res, next) => {
+  return res.json({
+    _id: req.case.id,
+    name: req.case.name,
+    description: req.case.description
+  });
+};
