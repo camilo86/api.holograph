@@ -98,7 +98,7 @@ describe('Vertices', () => {
       });
   });
 
-  it('should delete a vertex', (done) => {
+  it.skip('should delete a vertex', (done) => {
     chai.request(api)
       .delete('/v1/cases/' + vertex.caseId + '/vertices/' + vertex._id)
       .end((req, res) => {
