@@ -31,4 +31,25 @@ describe('Cases', () => {
         done();
       });
   });
+
+  it('should get all cases', (done) => {
+    chai.request(api)
+      .get('/v1/cases')
+      .end((req, res) => {
+        res.should.have.status(200);
+
+        res.body.should.have.lengthOf(1);
+
+        res.body[0].should.have.property('name');
+        res.body[0].name.should.equal(currentCase.name)
+
+        res.body[0].should.have.property('description');
+        res.body[0].description.should.equal(currentCase.description);
+
+        res.body[0].should.have.property('_id');
+        res.body[0]._id.should.equal(currentCase._id);
+
+        done();
+      });
+  });
 });
