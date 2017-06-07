@@ -12,6 +12,11 @@ describe('Cases', () => {
     description: 'new case'
   };
 
+  var currentCaseUpdated = {
+    name: 'wannacry',
+    description: 'attack under review'
+  };
+
   it('should create a case', (done) => {
     chai.request(api)
       .post('/v1/cases')
@@ -67,6 +72,17 @@ describe('Cases', () => {
 
         res.body.should.have.property('_id');
         res.body._id.should.equal(currentCase._id);
+
+        done();
+      });
+  });
+
+  it('should update a case', (done) => {
+    chai.request(api)
+      .put('/v1/cases/' + currentCase._id)
+      .send(currentCaseUpdated)
+      .end((req, res) => {
+        res.should.have.status(204);
 
         done();
       });

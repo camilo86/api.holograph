@@ -62,3 +62,30 @@ exports.getCase = (req, res, next) => {
     description: req.case.description
   });
 };
+
+/**
+ * Updates a case
+ */
+exports.updateCase = (req, res, next) => {
+  req.assert('name', 'name cannot be empty and must be 150 characters or less').optional().notEmpty().isLength({ max: 150 });
+  req.assert('description', 'description must be 200 characters or less').optional().isLength({ max: 200 });
+
+  var errors = req.validationErrors();
+  if(errors) {
+    return next({
+      message: errors
+    });
+  }
+
+  req.case.name = req.body.name || req.case.name;
+  req.case.description = req.body.description || req.case.description;
+
+  req.case.save((error) => {
+    if(error) {
+      return next({
+        message: 'Case could not be updated'
+      });
+    }
+    return res.sendStatus(204);
+  });
+};

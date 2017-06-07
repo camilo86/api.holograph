@@ -11,4 +11,9 @@ router.get('/:caseId',
   [get.getCaseFromParams],
   casesController.getCase);
 
+// PUT Requests
+router.put('/:caseId',
+  [get.getCaseFromParams],
+  casesController.updateCase);
+
 module.exports = router;
