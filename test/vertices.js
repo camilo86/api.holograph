@@ -41,4 +41,25 @@ describe('Vertices', () => {
         done(); 
       });
   });
+
+  it('should get all verticies in a case', (done) => {
+    chai.request(api)
+      .get('/v1/cases/' + vertex.caseId + '/vertices')
+      .end((req, res) => {
+        res.should.have.status(200);
+
+        res.body.should.have.lengthOf(1);
+
+        res.body[0].should.have.property('name');
+        res.body[0].name.should.equal(vertex.name)
+
+        res.body[0].should.have.property('type');
+        res.body[0].type.should.equal(vertex.type);
+
+        res.body[0].should.have.property('_id');
+        res.body[0]._id.should.equal(vertex._id);
+
+        done(); 
+      });
+  });
 });
