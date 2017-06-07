@@ -89,21 +89,12 @@ describe('Vertices', () => {
 
   it('should update a vertex', (done) => {
     chai.request(api)
-      .post('/v1/cases/' + vertex.caseId + '/vertices/' + vertex._id)
+      .put('/v1/cases/' + vertex.caseId + '/vertices/' + vertex._id)
       .send(vertexUpdated)
       .end((req, res) => {
-        res.should.have.status(201);
+        res.should.have.status(204);
 
-        res.body.should.have.property('name');
-        res.body.name.should.equal(vertexUpdated.name)
-
-        res.body.should.have.property('type');
-        res.body.type.should.equal(vertexUpdated.type);
-
-        res.body.should.have.property('_id');
-        res.body._id.should.equal(vertex._id);
-
-        done(); 
+        done();
       });
   });
 });

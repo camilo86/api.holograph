@@ -61,3 +61,28 @@ exports.getVertex = (req, res, next) => {
     type: req.vertex.type
   })
 };
+
+exports.updateVertex = (req, res, next) => {
+  req.assert('name', 'name cannot be empty').optional().notEmpty();
+  req.assert('type', 'type cannot be empty').optional().notEmpty();
+
+  var errors = req.validationErrors();
+  if(errors) {
+    return next({
+      message: errors
+    });
+  }
+
+  req.vertex.name = req.body.name || req.vertex.name;
+  req.vertex.type = req.body.type || req.vertex.type;
+
+  req.vertex.save((error) => {
+    if(error) {
+      return next({
+        message: 'Vertex could not be updated'
+      });
+    }
+
+    return res.sendStatus(204);
+  });
+};

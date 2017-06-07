@@ -25,6 +25,9 @@ router.get('/:caseId/vertices/:vertexId',
 router.put('/:caseId',
   [get.caseFromParams],
   casesController.updateCase);
+router.put('/:caseId/vertices/:vertexId',
+  [get.caseFromParams, get.vertexInCase],
+  verticesController.updateVertex);
 
 // DELETE Requests
 router.delete('/:caseId',
