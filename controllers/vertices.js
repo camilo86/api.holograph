@@ -16,7 +16,8 @@ exports.createVertex = (req, res, next) => {
 
   var vertex = new Vertex({
     name: req.body.name,
-    type: req.body.type
+    type: req.body.type,
+    case: req.case.id
   });
 
   vertex.save((error) => {
@@ -49,3 +50,14 @@ exports.createVertex = (req, res, next) => {
 exports.getVertices = (req, res, next) => {
   return res.json(req.vertices);
 }; 
+
+/**
+ * Gets a single vertex
+ */
+exports.getVertex = (req, res, next) => {
+  return res.json({
+    _id: req.vertex.id,
+    name: req.vertex.name,
+    type: req.vertex.type
+  })
+};

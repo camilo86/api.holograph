@@ -17,6 +17,9 @@ router.get('/:caseId',
 router.get('/:caseId/vertices',
   [get.caseFromParams, get.verticesFromCase],
   verticesController.getVertices);
+router.get('/:caseId/vertices/:vertexId',
+  [get.caseFromParams, get.vertexInCase],
+  verticesController.getVertex);
 
 // PUT Requests
 router.put('/:caseId',
