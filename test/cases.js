@@ -52,4 +52,23 @@ describe('Cases', () => {
         done();
       });
   });
+
+  it('should get a single case', (done) => {
+    chai.request(api)
+      .get('/v1/cases/' + currentCase._id)
+      .end((req, res) => {
+        res.should.have.status(200);
+
+        res.body.should.have.property('name');
+        res.body.name.should.equal(currentCase.name)
+
+        res.body.should.have.property('description');
+        res.body.description.should.equal(currentCase.description);
+
+        res.body.should.have.property('_id');
+        res.body._id.should.equal(currentCase._id);
+
+        done();
+      });
+  });
 });
