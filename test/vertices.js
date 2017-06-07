@@ -97,4 +97,14 @@ describe('Vertices', () => {
         done();
       });
   });
+
+  it('should delete a vertex', (done) => {
+    chai.request(api)
+      .delete('/v1/cases/' + vertex.caseId + '/vertices/' + vertex._id)
+      .end((req, res) => {
+        res.should.have.status(204);
+
+        done();
+      });
+  });
 });
