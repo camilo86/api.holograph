@@ -87,4 +87,14 @@ describe('Cases', () => {
         done();
       });
   });
+
+  it('should delete a case', (done) => {
+    chai.request(api)
+      .delete('/v1/cases/' + currentCase._id)
+      .end((req, res) => {
+        res.should.have.status(204);
+
+        done();
+      });
+  });
 });
