@@ -4,7 +4,7 @@ var caseSchema = new mongoose.Schema({
   name: { type: String, maxlength: 150, required: true },
   description: { type: String, maxlength: 200 },
   graph: {
-    verticies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Node' }],
+    verticies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vertex' }],
     edges: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Edge'}]
   }
 }, { timestamps: true });

@@ -1,9 +1,13 @@
 var router = require('express').Router();
 var get = require('./../lib/getters');
 var casesController = require('./../controllers/cases');
+var verticesController = require('./../controllers/vertices');
 
 // POST Requests
 router.post('/', casesController.createCase);
+router.post('/:caseId/vertices',
+  [get.getCaseFromParams],
+  verticesController.createVertex);
 
 // GET Requests
 router.get('/', casesController.getCases);
