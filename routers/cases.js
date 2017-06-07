@@ -16,4 +16,9 @@ router.put('/:caseId',
   [get.getCaseFromParams],
   casesController.updateCase);
 
+// DELETE Requests
+router.delete('/:caseId',
+  [get.getCaseFromParams],
+  casesController.deleteCase);
+
 module.exports = router;

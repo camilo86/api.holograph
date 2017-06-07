@@ -89,3 +89,18 @@ exports.updateCase = (req, res, next) => {
     return res.sendStatus(204);
   });
 };
+
+/**
+ * Removes a case
+ */
+exports.deleteCase = (req, res, next) => {
+  req.case.remove((error) => {
+    if(error) {
+      return next({
+        message: 'Could not remove case'
+      });
+    }
+
+    return res.sendStatus(204);
+  });
+};
