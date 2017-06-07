@@ -12,6 +12,11 @@ describe('Vertices', () => {
     type: 'computer'
   };
 
+  var vertexUpdated = {
+    name: '1',
+    type: 'account'
+  };
+
   before((done) => {
     chai.request(api)
       .get('/v1/cases')
@@ -74,6 +79,26 @@ describe('Vertices', () => {
 
         res.body.should.have.property('type');
         res.body.type.should.equal(vertex.type);
+
+        res.body.should.have.property('_id');
+        res.body._id.should.equal(vertex._id);
+
+        done(); 
+      });
+  });
+
+  it('should update a vertex', (done) => {
+    chai.request(api)
+      .post('/v1/cases/' + vertex.caseId + '/vertices/' + vertex._id)
+      .send(vertexUpdated)
+      .end((req, res) => {
+        res.should.have.status(201);
+
+        res.body.should.have.property('name');
+        res.body.name.should.equal(vertexUpdated.name)
+
+        res.body.should.have.property('type');
+        res.body.type.should.equal(vertexUpdated.type);
 
         res.body.should.have.property('_id');
         res.body._id.should.equal(vertex._id);
