@@ -27,9 +27,27 @@ exports.createCase = (req, res, next) => {
     }
 
     return res.status(201).json({
+       _id: newCase._id,
       name: newCase.name,
-      description: newCase.description,
-      _id: newCase.id
+      description: newCase.description
     });
+  });
+};
+
+/**
+ * Get all cases
+ */
+exports.getCases = (req, res, next) => {
+  Case.find({})
+    .select('_id name description')
+    .exec((error, cases) => {
+    if(error) {
+      return next({
+        message: 'cases not found',
+        status: 404
+      });
+    }
+
+    return res.json(cases);
   });
 };
