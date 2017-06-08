@@ -51,3 +51,21 @@ exports.getEdge = (req, res, next) => {
     target: req.edge.target
   });
 };
+
+/**
+ * Updates an edge
+ */
+exports.updateEdge = (req, res, next) => {
+  req.edge.source = req.source || req.edge.source;
+  req.edge.target = req.target || req.edge.target;
+
+  req.edge.save((error) => {
+    if(error) {
+      return next({
+        message: 'Could not update edge'
+      });
+    }
+
+    return res.sendStatus(204);
+  });
+};

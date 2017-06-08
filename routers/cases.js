@@ -38,6 +38,9 @@ router.put('/:caseId',
 router.put('/:caseId/vertices/:vertexId',
   [get.caseFromParams, get.vertexInCase],
   verticesController.updateVertex);
+router.put('/:caseId/edges/:edgeId',
+  [get.caseFromParams, get.sourceInCaseFromBody, get.targetInCaseFromBody, get.edgeInCase],
+  edgesController.updateEdge);
 
 // DELETE Requests
 router.delete('/:caseId',
