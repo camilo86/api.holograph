@@ -6,13 +6,14 @@ var Edge = require('./../models/edges');
 exports.createEdge = (req, res, next) => {
   var edge = new Edge({
     source: req.source,
-    target: req.target
+    target: req.target,
+    case: req.case
   });
 
   edge.save((error) => {
     if(error) {
       return next({
-        message: 'Could not create new edge'
+        message: error
       });
     }
 
@@ -38,4 +39,15 @@ exports.createEdge = (req, res, next) => {
  */
 exports.getEdges = (req, res, next) => {
   return res.json(req.case.graph.edges);
+};
+
+/**
+ * Gets a single edge
+ */
+exports.getEdge = (req, res, next) => {
+  return res.json({
+    _id: req.edge._id,
+    source: req.edge.source,
+    target: req.edge.target
+  });
 };
