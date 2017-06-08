@@ -85,4 +85,14 @@ describe('Edges', () => {
         done(); 
       });
   });
+
+  it('should update an edge', (done) => {
+    chai.request(api)
+      .put('/v1/cases/' + edge.caseId + '/edges/' + edge._id)
+      .end((req, res) => {
+        res.should.have.status(204);
+
+        done(); 
+      });
+  });
 });
