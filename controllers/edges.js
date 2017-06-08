@@ -32,3 +32,10 @@ exports.createEdge = (req, res, next) => {
     });
   });
 };
+
+/**
+ * Gets all edges in a case
+ */
+exports.getEdges = (req, res, next) => {
+  return res.json(req.case.graph.edges);
+};

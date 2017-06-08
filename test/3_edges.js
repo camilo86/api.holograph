@@ -34,10 +34,10 @@ describe('Edges', () => {
         res.should.have.status(201);
 
         res.body.should.have.property('source');
-        res.body.source.should.equal(edge.source);
+        res.body.source._id.should.equal(edge.source);
 
         res.body.should.have.property('target');
-        res.body.target.should.equal(edge.target);
+        res.body.target._id.should.equal(edge.target);
 
         res.body.should.have.property('_id');
         edge._id = res.body._id;
@@ -55,10 +55,10 @@ describe('Edges', () => {
         res.body.should.have.lengthOf(1);
 
         res.body[0].should.have.property('source');
-        res.body[0].source.should.equal(edge.source);
+        res.body[0].source._id.should.equal(edge.source);
 
         res.body[0].should.have.property('target');
-        res.body[0].target.should.equal(edge.target);
+        res.body[0].target._id.should.equal(edge.target);
 
         res.body[0].should.have.property('_id');
         res.body[0]._id.should.equal(edge._id);
