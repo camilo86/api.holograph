@@ -88,7 +88,7 @@ describe('Cases', () => {
       });
   });
 
-  it('should delete a case', (done) => {
+  it.skip('should delete a case', (done) => {
     chai.request(api)
       .delete('/v1/cases/' + currentCase._id)
       .end((req, res) => {
