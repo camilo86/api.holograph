@@ -45,4 +45,25 @@ describe('Edges', () => {
         done(); 
       });
   });
+
+  it('should get all edges in a case', (done) => {
+    chai.request(api)
+      .get('/v1/cases/' + edge.caseId + '/edges')
+      .end((req, res) => {
+        res.should.have.status(200);
+
+        res.body.should.have.lengthOf(1);
+
+        res.body[0].should.have.property('source');
+        res.body[0].source.should.equal(edge.source);
+
+        res.body[0].should.have.property('target');
+        res.body[0].target.should.equal(edge.target);
+
+        res.body[0].should.have.property('_id');
+        res.body[0]._id.should.equal(edge._id);
+
+        done(); 
+      });
+  });
 });
