@@ -47,13 +47,27 @@ describe('Vertices', () => {
       });
   });
 
+  it('should create a second vertex', (done) => {
+    chai.request(api)
+      .post('/v1/cases/' + vertex.caseId + '/vertices')
+      .send({
+        name: '2',
+        type: 'computer'
+      })
+      .end((req, res) => {
+        res.should.have.status(201);
+
+        done(); 
+      });
+  });
+
   it('should get all verticies in a case', (done) => {
     chai.request(api)
       .get('/v1/cases/' + vertex.caseId + '/vertices')
       .end((req, res) => {
         res.should.have.status(200);
 
-        res.body.should.have.lengthOf(1);
+        res.body.should.have.lengthOf(2);
 
         res.body[0].should.have.property('name');
         res.body[0].name.should.equal(vertex.name)

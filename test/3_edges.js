@@ -34,13 +34,13 @@ describe('Edges', () => {
         res.should.have.status(201);
 
         res.body.should.have.property('source');
-        res.body.name.should.equal(vertex.source);
+        res.body.source.should.equal(edge.source);
 
-        res.body.should.have.property('targe');
-        res.body.type.should.equal(vertex.target);
+        res.body.should.have.property('target');
+        res.body.target.should.equal(edge.target);
 
         res.body.should.have.property('_id');
-        vertex._id = res.body._id;
+        edge._id = res.body._id;
 
         done(); 
       });

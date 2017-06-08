@@ -2,12 +2,16 @@ var router = require('express').Router();
 var get = require('./../lib/getters');
 var casesController = require('./../controllers/cases');
 var verticesController = require('./../controllers/vertices');
+var edgesController = require('./../controllers/edges');
 
 // POST Requests
 router.post('/', casesController.createCase);
 router.post('/:caseId/vertices',
   [get.caseFromParams],
   verticesController.createVertex);
+router.post('/:caseId/edges',
+  [get.caseFromParams, get.sourceInCaseFromBody, get.targetInCaseFromBody],
+  edgesController.createEdge);
 
 // GET Requests
 router.get('/', casesController.getCases);
