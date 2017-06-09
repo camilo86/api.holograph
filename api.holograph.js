@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
   return res.status(response.status).json(response);
 });
 
-var listener = app.listen(process.env.PORT, () => {
+var listener = app.listen(process.env.PORT || 80, () => {
   console.log('Holograph API running in port ' + listener.address().port);
 });
 
