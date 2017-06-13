@@ -17,12 +17,7 @@ caseSchema.pre('save', function (next) {
     redisClient.pub.publish(redisChannels.graphGenerationNeeded,
     JSON.stringify({
       _id: this.id,
-      vertices: this.graph.vertices
-    }));
-
-    console.log(JSON.stringify({
-      _id: this.id,
-      vertices: this.graph.vertices
+      graph: this.graph
     }));
   }
 

@@ -32,7 +32,7 @@ describe('Vertices', () => {
       .post('/v1/cases/' + vertex.caseId + '/vertices')
       .send(vertex)
       .end((req, res) => {
-        res.should.have.status(201);
+        res.should.have.status(200);
 
         res.body.should.have.property('name');
         res.body.name.should.equal(vertex.name)
