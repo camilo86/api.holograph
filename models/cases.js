@@ -16,7 +16,13 @@ caseSchema.pre('save', function (next) {
   if(this.graph.vertices.length > 0 || this.graph.edges.length > 0) {
     redisClient.pub.publish(redisChannels.graphGenerationNeeded,
     JSON.stringify({
-      case: this.id
+      _id: this.id,
+      vertices: this.graph.vertices
+    }));
+
+    console.log(JSON.stringify({
+      _id: this.id,
+      vertices: this.graph.vertices
     }));
   }
 
