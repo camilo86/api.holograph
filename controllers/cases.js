@@ -52,6 +52,10 @@ exports.getCases = (req, res, next) => {
   });
 };
 
+exports.getGraph = (req, res, next) => {
+  return res.json(req.case.graph);
+};
+
 /**
  * Get a single case
  */

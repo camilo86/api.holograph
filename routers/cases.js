@@ -18,6 +18,9 @@ router.get('/', casesController.getCases);
 router.get('/:caseId',
   [get.caseFromParams],
   casesController.getCase);
+router.get('/:caseId/graph',
+  [get.caseFromParams],
+  casesController.getGraph);
 router.get('/:caseId/vertices',
   [get.caseFromParams],
   verticesController.getVertices);

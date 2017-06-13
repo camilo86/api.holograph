@@ -58,7 +58,8 @@ exports.getVertex = (req, res, next) => {
   return res.json({
     _id: req.vertex.id,
     name: req.vertex.name,
-    type: req.vertex.type
+    type: req.vertex.type,
+    coordinates: req.vertex.coordinates
   })
 };
 
