@@ -13,6 +13,10 @@ mongoose.connection.on('error', () => {
 })
 
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+server.listen(3001);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -22,6 +26,12 @@ app.use(expressValidator());
 var casesRouter = require('./routers/cases');
 
 app.use('/v1/cases', casesRouter);
+
+io.on('connection', function (socket) {
+	socket.emit('case', {
+		message: 'Hello Wolrd'
+	});
+});
 
 // Error handler
 app.use((err, req, res, next) => {
