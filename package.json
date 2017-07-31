@@ -20,6 +20,7 @@
     "express": "^4.15.3",
     "mongoose": "^4.11.5",
     "restify": "^5.0.1",
-    "restify-errors": "^4.3.0"
+    "restify-errors": "^4.3.0",
+    "restify-router": "^0.4.2"
   }
 }
