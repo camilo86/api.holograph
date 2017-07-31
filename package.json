@@ -1,32 +1,22 @@
 {
-  "name": "holograph",
-  "version": "1.0.0",
-  "description": "Backend to interact with holographic graph",
+  "name": "api.holograph",
+  "version": "1.1.0",
+  "description": "Holograph API",
   "main": "api.holograph.js",
   "scripts": {
-    "start": "node api.holograph.js",
-    "test": "mocha"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://cdochololens.visualstudio.com/CDOC%20Hololens/_git/api.holograph"
   },
   "keywords": [
-    "hololens",
-    "hologram",
-    "graph"
+    "Holograph",
+    "Hololens"
   ],
-  "author": "Camilo Gonzalez",
-  "license": "ISC",
+  "author": "Camilo Gonzalez Tabares",
+  "license": "MIT",
   "dependencies": {
-    "async": "^2.4.1",
-    "body-parser": "^1.17.2",
-    "dotenv": "^4.0.0",
-    "express": "^4.15.3",
-    "express-validator": "^3.2.0",
-    "mongoose": "^4.10.5",
-    "redis": "^2.7.1"
-  },
-  "devDependencies": {
-    "chai": "^4.0.2",
-    "chai-http": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-mocha": "^4.3.1"
+    "express": "^4.15.3"
   }
 }
