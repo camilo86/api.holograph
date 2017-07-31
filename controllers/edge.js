@@ -83,8 +83,8 @@ exports.getEdge = (req, res, next) => {
 /**
  * PUT /cases/:caseId/edges/:edgeId
  * Updates an edge source and target
- * - source
- * - target
+ * - source (optional)
+ * - target (optional)
  */
 exports.updateEdge = (req, res, next) => {
   Case.findById(req.params.caseId, (error, currentCase) => {
@@ -109,6 +109,38 @@ exports.updateEdge = (req, res, next) => {
         currentCase.save((error) => {
           if(error) {
             return next(new createError.BadRequest('Could not update case'));
+          }
+
+          res.sendStatus(204);
+          next();
+        });
+      }
+    }
+    if(!tempEdge) {
+      return next(new createError.NotFound('Edge not found'));
+    }
+  });
+};
+
+/**
+ * DELETE /cases/:caseId/edges/:edgeId
+ * Removes an edge
+ */
+exports.removeEdge = (req, res, next) => {
+  Case.findById(req.params.caseId, (error, currentCase) => {
+    if(error || !currentCase) {
+      return next(new createError.NotFound('Case not found'));
+    }
+
+    var tempEdge = null;
+    for(var i = 0; i < currentCase.graph.edges.length; i++) {
+      if(currentCase.graph.edges[i]._id == req.params.edgeId) {
+        tempEdge = currentCase.graph.edges[i];
+        
+        currentCase.graph.edges.splice(i, 1);
+        currentCase.save((error) => {
+          if(error) {
+            return next(new createError.BadRequest('Could not remove edge'));
           }
 
           res.sendStatus(204);

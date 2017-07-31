@@ -24,5 +24,6 @@ router.get('/:caseId/edges/:edgeId', edgeController.getEdge);
 // DELETE requests
 router.delete('/:caseId', caseController.removeCase);
 router.delete('/:caseId/vertices/:vertexId', vertexController.removeVertex);
+router.delete('/:caseId/edges/:edgeId', edgeController.removeEdge);
 
 module.exports = router;
