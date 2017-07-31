@@ -11,6 +11,7 @@ router.post('/:caseId/edges', edgeController.createEdge);
 // PUT requests
 router.put('/:caseId', caseController.updateCase);
 router.put('/:caseId/vertices/:vertexId', vertexController.updateVertex);
+router.put('/:caseId/edges/:edgeId', edgeController.updateEdge);
 
 // GET requests
 router.get('/', caseController.getAllCases);

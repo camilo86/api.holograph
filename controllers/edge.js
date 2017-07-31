@@ -79,3 +79,45 @@ exports.getEdge = (req, res, next) => {
     next();
   });
 };
+
+/**
+ * PUT /cases/:caseId/edges/:edgeId
+ * Updates an edge source and target
+ * - source
+ * - target
+ */
+exports.updateEdge = (req, res, next) => {
+  Case.findById(req.params.caseId, (error, currentCase) => {
+    if(error || !currentCase) {
+      return next(new createError.NotFound('Case not found'));
+    }
+
+    var tempEdge = null;
+    for(var i = 0; i < currentCase.graph.edges.length; i++) {
+      if(currentCase.graph.edges[i]._id == req.params.edgeId) {
+        tempEdge = currentCase.graph.edges[i];
+        var sourceVertex = currentCase.graph.vertices.id(req.body.source);
+        var targetVertex = currentCase.graph.vertices.id(req.body.target);
+
+        if(!sourceVertex || !targetVertex) {
+          return next(new createError.NotFound('source/target not found'));
+        }
+
+        currentCase.graph.edges[i].source = sourceVertex._id || tempEdge.source;
+        currentCase.graph.edges[i].target = targetVertex._id || tempEdge.target;
+
+        currentCase.save((error) => {
+          if(error) {
+            return next(new createError.BadRequest('Could not update case'));
+          }
+
+          res.sendStatus(204);
+          next();
+        });
+      }
+    }
+    if(!tempEdge) {
+      return next(new createError.NotFound('Edge not found'));
+    }
+  });
+};
