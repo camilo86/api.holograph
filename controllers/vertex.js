@@ -105,3 +105,34 @@ exports.updateVertex = (req, res, next) => {
     }
   });
 };
+
+/**
+ * DELETE /cases/:caseId/vertices/:vertexId
+ * Removes a single vertex
+ */
+exports.removeVertex = (req, res, next) => {
+  Case.findById(req.params.caseId, (error, currentCase) => {
+    if(error || !currentCase) {
+      return next(new createError.NotFound('Case not found'));
+    }
+
+    var tempVertex = null;
+    for(var i = 0; i < currentCase.graph.vertices.length; i++) {
+      tempVertex = currentCase.graph.vertices[i];
+      if(tempVertex._id == req.params.vertexId) {
+        currentCase.graph.vertices.splice(i, 1);
+        currentCase.save((error) => {
+          if(error) {
+            return next(new createError.BadRequest('Could not remove vertex'));
+          }
+
+          res.sendStatus(204);
+          next();
+        })
+      }
+    }
+    if(!tempVertex) {
+      return next(new createError.NotFound('Vertex not found'));
+    }
+  });
+};

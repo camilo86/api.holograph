@@ -18,5 +18,6 @@ router.get('/:caseId/vertices/:vertexId', vertexController.getVertex);
 
 // DELETE requests
 router.delete('/:caseId', caseController.removeCase);
+router.delete('/:caseId/vertices/:vertexId', vertexController.removeVertex);
 
 module.exports = router;
