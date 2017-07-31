@@ -17,6 +17,8 @@
   "author": "Camilo Gonzalez Tabares",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "restify": "^5.0.1",
+    "restify-errors": "^4.3.0"
   }
 }

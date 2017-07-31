@@ -1,14 +1,12 @@
-var express = require('express');
-var app = express();
+var restify = require('restify');
+var errs = require('restify-errors');
+var server = restify.createServer();
 
-app.get('/', (req, res, next) => {
-  return res.json({
-    message: 'Hello World!'
-  });
+server.get('/', (req, res, next) => {
+  res.send('Hello World');
+  next();
 });
 
-var listener = app.listen(process.env.PORT || 3000, () => {
-  console.log('Holograph API running in port ' + listener.address().port);
+server.listen(process.env.PORT || 3000, () => {
+  console.log('Holograph API listening at %s', server.url);
 });
-
-module.exports = app;
