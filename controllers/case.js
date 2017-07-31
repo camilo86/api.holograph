@@ -50,6 +50,23 @@ exports.getCase = (req, res, next) => {
 };
 
 /**
+ * PUT /cases/:caseId
+ * Updates a case given it's caseId
+ * - name (optional)
+ * - description (optional)
+ */
+exports.updateCase = (req, res, next) => {
+  Case.findByIdAndUpdate(req.params.caseId, req.body, (error, currentCase) => {
+    if(error) {
+      return next(new errs.NotFoundError('Could not update case'));
+    }
+
+    res.json(currentCase);
+    next();
+  });
+};
+
+/**
  * DELETE /cases/:caseId
  * Removes a single case given it's caseId
  */

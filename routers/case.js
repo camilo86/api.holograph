@@ -5,6 +5,9 @@ var routerInstance = new Router();
 // POST requests
 routerInstance.post('/', caseController.createCase);
 
+// PUT requests
+routerInstance.put('/:caseId', caseController.updateCase);
+
 // GET requests
 routerInstance.get('/', caseController.getAllCases);
 routerInstance.get('/:caseId', caseController.getCase);
