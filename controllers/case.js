@@ -1,4 +1,4 @@
-var errs = require('restify-errors');
+var createError = require('http-errors');
 var util = require('util');
 var Case = require('./../models/case');
 
@@ -9,9 +9,16 @@ var Case = require('./../models/case');
  * - description
  */
 exports.createCase = (req, res, next) => {
+  req.assert('name', 'name is not valid').notEmpty();
+
+  var errors = req.validationErrors();
+  if(errors) {
+    return next(new createError.BadRequest(util.inspect(errors)))
+  }
+
   Case.create(req.body, (error, newCase) => {
     if(error) {
-      return next(new errs.BadRequestError('Could not create case'));
+      return next(new createError.BadRequest('Could not create case'));
     }
 
     res.json(newCase.public());
@@ -26,7 +33,7 @@ exports.createCase = (req, res, next) => {
 exports.getAllCases = (req, res, next) => {
   Case.find({}, '-__v', (error, cases) => {
     if(error) {
-      return next(new errs.BadRequestError('Could not get cases'));
+      return next(new createError.BadRequest('Could not get cases'));
     }
 
     res.json(cases);
@@ -41,7 +48,7 @@ exports.getAllCases = (req, res, next) => {
 exports.getCase = (req, res, next) => {
   Case.findById(req.params.caseId, (error, currentCase) => {
     if(error || !currentCase) {
-      return next(new errs.NotFoundError('Case not found'));
+      return next(new createError.NotFound('Case not found'));
     }
 
     res.json(currentCase.public());
@@ -58,7 +65,7 @@ exports.getCase = (req, res, next) => {
 exports.updateCase = (req, res, next) => {
   Case.findByIdAndUpdate(req.params.caseId, req.body, (error, currentCase) => {
     if(error) {
-      return next(new errs.NotFoundError('Could not update case'));
+      return next(new createError.NotFound('Could not update case'));
     }
 
     res.json(currentCase);
@@ -73,7 +80,7 @@ exports.updateCase = (req, res, next) => {
 exports.removeCase = (req, res, next) => {
   Case.findByIdAndRemove(req.params.caseId, (error) => {
     if(error) {
-      return next(new errs.BadRequestError('Could not remove case id'));
+      return next(new createError.NotFound('Could not remove case id'));
     }
 
     res.send(204);

@@ -17,10 +17,10 @@
   "author": "Camilo Gonzalez Tabares",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "mongoose": "^4.11.5",
-    "restify": "^5.0.1",
-    "restify-errors": "^4.3.0",
-    "restify-router": "^0.4.2"
+    "express-validator": "^3.2.1",
+    "http-errors": "^1.6.1",
+    "mongoose": "^4.11.5"
   }
 }

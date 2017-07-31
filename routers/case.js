@@ -1,18 +1,17 @@
 var caseController = require('./../controllers/case');
-var Router = require('restify-router').Router;
-var routerInstance = new Router();
+var router = require('express').Router();
 
 // POST requests
-routerInstance.post('/', caseController.createCase);
+router.post('/', caseController.createCase);
 
 // PUT requests
-routerInstance.put('/:caseId', caseController.updateCase);
+router.put('/:caseId', caseController.updateCase);
 
 // GET requests
-routerInstance.get('/', caseController.getAllCases);
-routerInstance.get('/:caseId', caseController.getCase);
+router.get('/', caseController.getAllCases);
+router.get('/:caseId', caseController.getCase);
 
 // DELETE requests
-routerInstance.del('/:caseId', caseController.removeCase);
+router.delete('/:caseId', caseController.removeCase);
 
-module.exports = routerInstance;
+module.exports = router;
