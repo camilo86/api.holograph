@@ -95,7 +95,7 @@ exports.updateVertex = (req, res, next) => {
             return next(new createError.BadRequest('Could not update vertex'));
           }
 
-          res.send(204);
+          res.sendStatus(204);
           next();
         });
       }

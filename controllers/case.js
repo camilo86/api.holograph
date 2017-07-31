@@ -83,7 +83,7 @@ exports.removeCase = (req, res, next) => {
       return next(new createError.NotFound('Could not remove case id'));
     }
 
-    res.send(204);
+    res.sendStatus(204);
     next();
   });
 };
