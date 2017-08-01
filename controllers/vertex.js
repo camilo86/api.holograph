@@ -62,8 +62,8 @@ exports.getVertex = (req, res, next) => {
 
     var tempVertex = null;
     for(var i = 0; i < currentCase.graph.vertices.length; i++) {
-      tempVertex = currentCase.graph.vertices[i];
-      if(tempVertex._id == req.params.vertexId) {
+      if(currentCase.graph.vertices[i]._id == req.params.vertexId) {
+        tempVertex = currentCase.graph.vertices[i];
         res.json(tempVertex);
         next();
       }
@@ -87,8 +87,8 @@ exports.updateVertex = (req, res, next) => {
 
     var tempVertex = null;
     for(var i = 0; i < currentCase.graph.vertices.length; i++) {
-      tempVertex = currentCase.graph.vertices[i];
-      if(tempVertex._id == req.params.vertexId) {
+      if(currentCase.graph.vertices[i]._id == req.params.vertexId) {
+        tempVertex = currentCase.graph.vertices[i];
         currentCase.graph.vertices[i].name = req.body.name || tempVertex.name;
         currentCase.save((error) => {
           if(error) {
