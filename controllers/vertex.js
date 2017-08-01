@@ -120,6 +120,20 @@ exports.removeVertex = (req, res, next) => {
     for(var i = 0; i < currentCase.graph.vertices.length; i++) {
       tempVertex = currentCase.graph.vertices[i];
       if(tempVertex._id == req.params.vertexId) {
+        var edgesIndexToDelete = [];
+        for(var x = 0; x < currentCase.graph.edges.length; x++) {
+          console.log("----------------");
+          if(String(currentCase.graph.edges[x].source) == String(currentCase.graph.vertices[i]._id) || String(currentCase.graph.edges[x].target) == String(currentCase.graph.vertices[i]._id)) {
+            edgesIndexToDelete.push(x);
+          }
+        }
+
+        // Removes edges that reference the vertex that is about to be deleted
+
+        for(var c = 0; c < edgesIndexToDelete.length; c++) {
+          currentCase.graph.edges.splice(edgesIndexToDelete[c], 1);
+        }
+
         currentCase.graph.vertices.splice(i, 1);
         currentCase.save((error) => {
           if(error) {
