@@ -13,6 +13,7 @@ mongoose.connect(process.env.DATABASE || 'mongodb://localhost:27017/holograph', 
 });
 
 // app settings
+app.use(helmet());
 app.use(bodyParser.urlencoded({
 extended: true
 }));

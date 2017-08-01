@@ -4,7 +4,8 @@
   "description": "Holograph API",
   "main": "api.holograph.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api.holograph.js"
   },
   "repository": {
     "type": "git",
