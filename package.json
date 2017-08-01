@@ -10,6 +10,9 @@
     "type": "git",
     "url": "https://cdochololens.visualstudio.com/CDOC%20Hololens/_git/api.holograph"
   },
+  "engines": { 
+    "node" : "6.11.1"
+  },
   "keywords": [
     "Holograph",
     "Hololens"
@@ -22,6 +25,6 @@
     "express-validator": "^3.2.1",
     "helmet": "^3.8.1",
     "http-errors": "^1.6.1",
-    "mongoose": "^4.11.5"
+    "mongoose": "^4.10.8"
   }
 }
