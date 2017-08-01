@@ -122,7 +122,6 @@ exports.removeVertex = (req, res, next) => {
       if(tempVertex._id == req.params.vertexId) {
         var edgesIndexToDelete = [];
         for(var x = 0; x < currentCase.graph.edges.length; x++) {
-          console.log("----------------");
           if(String(currentCase.graph.edges[x].source) == String(currentCase.graph.vertices[i]._id) || String(currentCase.graph.edges[x].target) == String(currentCase.graph.vertices[i]._id)) {
             edgesIndexToDelete.push(x);
           }
