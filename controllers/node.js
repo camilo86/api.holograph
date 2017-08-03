@@ -3,12 +3,12 @@ var util = require('util');
 var Case = require('./../models/case');
 
 /**
- * POST /cases/:caseId/vertices
+ * POST /Cases/:CaseId/Nodes
  * Adds a new vertex to case's graph
- * - name
+ * - Name
  */
-exports.createVertex = (req, res, next) => {
-  req.assert('name', 'name is not valid').notEmpty();
+exports.createNode = (req, res, next) => {
+  req.assert('Name', 'Name is not valid').notEmpty();
 
   var errors = req.validationErrors();
   if(errors) {
@@ -20,8 +20,8 @@ exports.createVertex = (req, res, next) => {
       return next(new createError.NotFound('Case not found'));
     }
 
-    currentCase.graph.vertices.push({
-      name: req.body.name
+    currentCase.Nodes.push({
+      Name: req.body.Name
     });
 
     currentCase.save((error) => {
@@ -36,34 +36,36 @@ exports.createVertex = (req, res, next) => {
 };
 
 /**
- * GET /cases/:caseId/vertices
- * Gets all vertices from a case given caseId
+ * GET /Cases/:CaseId/Nodes
+ * Gets all Nodes from a case given CaseId
  */
-exports.getAllVertices = (req, res, next) => {
+exports.getAllNodes = (req, res, next) => {
   Case.findById(req.params.caseId, (error, currentCase) => {
     if(error || !currentCase) {
       return next(new createError.NotFound('Case not found'));
     }
 
-    res.json(currentCase.graph.vertices);
+    res.json({
+      Nodes: currentCase.Nodes
+    });
     next();
   });
 };
 
 /**
- * GET /cases/:caseId/vertices/:vertexId
- * Gets a single vertex from a case given caseId and vertexId
+ * GET /Cases/:CaseId/Nodes/:NodeId
+ * Gets a single node from a case given CaseId and NodeId
  */
-exports.getVertex = (req, res, next) => {
+exports.getNode = (req, res, next) => {
   Case.findById(req.params.caseId, (error, currentCase) => {
     if(error || !currentCase) {
       return next(new createError.NotFound('Case not found'));
     }
 
     var tempVertex = null;
-    for(var i = 0; i < currentCase.graph.vertices.length; i++) {
-      if(currentCase.graph.vertices[i]._id == req.params.vertexId) {
-        tempVertex = currentCase.graph.vertices[i];
+    for(var i = 0; i < currentCase.Nodes.length; i++) {
+      if(currentCase.Nodes[i]._id == req.params.nodeId) {
+        tempVertex = currentCase.Nodes[i];
         res.json(tempVertex);
         next();
       }
@@ -75,21 +77,21 @@ exports.getVertex = (req, res, next) => {
 };
 
 /**
- * PUT /cases/:caseId/vertices/:vertexId
- * Updates a vertex given it's caseId and vertexId
- * - name (optional)
+ * PUT /Cases/:CaseId/Nodes/:NodeId
+ * Updates a node given it's CaseId and NodeId
+ * - Name (optional)
  */
-exports.updateVertex = (req, res, next) => {
+exports.updateNode = (req, res, next) => {
   Case.findById(req.params.caseId, (error, currentCase) => {
     if(error || !currentCase) {
       return next(new createError.NotFound('Case not found'));
     }
 
     var tempVertex = null;
-    for(var i = 0; i < currentCase.graph.vertices.length; i++) {
-      if(currentCase.graph.vertices[i]._id == req.params.vertexId) {
-        tempVertex = currentCase.graph.vertices[i];
-        currentCase.graph.vertices[i].name = req.body.name || tempVertex.name;
+    for(var i = 0; i < currentCase.Nodes.length; i++) {
+      if(currentCase.Nodes[i]._id == req.params.nodeId) {
+        tempVertex = currentCase.Nodes[i];
+        currentCase.Nodes[i].Name = req.body.Name || tempVertex.Name;
         currentCase.save((error) => {
           if(error) {
             return next(new createError.BadRequest('Could not update vertex'));
@@ -107,33 +109,32 @@ exports.updateVertex = (req, res, next) => {
 };
 
 /**
- * DELETE /cases/:caseId/vertices/:vertexId
- * Removes a single vertex
+ * DELETE /Cases/:CaseId/Nodes/:NodeId
+ * Removes a single node
  */
-exports.removeVertex = (req, res, next) => {
+exports.removeNode = (req, res, next) => {
   Case.findById(req.params.caseId, (error, currentCase) => {
     if(error || !currentCase) {
       return next(new createError.NotFound('Case not found'));
     }
 
     var tempVertex = null;
-    for(var i = 0; i < currentCase.graph.vertices.length; i++) {
-      tempVertex = currentCase.graph.vertices[i];
-      if(tempVertex._id == req.params.vertexId) {
+    for(var i = 0; i < currentCase.Nodes.length; i++) {
+      tempVertex = currentCase.Nodes[i];
+      if(tempVertex._id == req.params.nodeId) {
         var edgesIndexToDelete = [];
-        for(var x = 0; x < currentCase.graph.edges.length; x++) {
-          if(String(currentCase.graph.edges[x].source) == String(currentCase.graph.vertices[i]._id) || String(currentCase.graph.edges[x].target) == String(currentCase.graph.vertices[i]._id)) {
+        for(var x = 0; x < currentCase.Edges.length; x++) {
+          if(String(currentCase.Edges[x].source) == String(currentCase.Nodes[i]._id) || String(currentCase.Edges[x].Target) == String(currentCase.Nodes[i]._id)) {
             edgesIndexToDelete.push(x);
           }
         }
 
         // Removes edges that reference the vertex that is about to be deleted
-
         for(var c = 0; c < edgesIndexToDelete.length; c++) {
-          currentCase.graph.edges.splice(edgesIndexToDelete[c], 1);
+          currentCase.Edges.splice(edgesIndexToDelete[c], 1);
         }
 
-        currentCase.graph.vertices.splice(i, 1);
+        currentCase.Nodes.splice(i, 1);
         currentCase.save((error) => {
           if(error) {
             return next(new createError.BadRequest('Could not remove vertex'));

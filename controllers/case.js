@@ -9,7 +9,7 @@ var Case = require('./../models/case');
  * - description
  */
 exports.createCase = (req, res, next) => {
-  req.assert('name', 'name is not valid').notEmpty();
+  req.assert('Name', 'Name is not valid').notEmpty();
 
   var errors = req.validationErrors();
   if(errors) {
@@ -33,10 +33,12 @@ exports.createCase = (req, res, next) => {
 exports.getAllCases = (req, res, next) => {
   Case.find({}, '-__v', (error, cases) => {
     if(error) {
-      return next(new createError.BadRequest('Could not get cases'));
+      return next(new createError.BadRequest('Could not get Cases'));
     }
 
-    res.json(cases);
+    res.json({
+      Cases: cases
+    });
     next();
   });
 };

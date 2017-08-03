@@ -1,29 +1,30 @@
 var mongoose = require('mongoose');
 
 var caseSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String },
-  graph: {
-    vertices: [
-      {
-         name: { type: String }
-      }
-    ],
-    edges: [
-      {
-        source: { type: mongoose.Schema.Types.ObjectId },
-        target: { type: mongoose.Schema.Types.ObjectId }
-      }
-    ]
-  }
+  Name: { type: String, required: true },
+  Description: { type: String },
+
+  Nodes: [
+    {
+        Name: { type: String }
+    }
+  ],
+  Edges: [
+    {
+      Source: { type: mongoose.Schema.Types.ObjectId },
+      Target: { type: mongoose.Schema.Types.ObjectId }
+    }
+  ]
+
 });
 
 caseSchema.methods.public = function() {
   return {
     _id: this.id,
-    name: this.name,
-    description: this.description,
-    graph: this.graph
+    Name: this.Name,
+    Description: this.Description,
+    Nodes: this.Nodes,
+    Edges: this.Edges
   };
 };
 

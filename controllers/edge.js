@@ -9,8 +9,8 @@ var Case = require('./../models/case');
  * - target
  */
 exports.createEdge = (req, res, next) => {
-  req.assert('source', 'source is not valid').notEmpty().isMongoId();
-  req.assert('target', 'target is not valid').notEmpty().isMongoId();
+  req.assert('Source', 'source is not valid').notEmpty().isMongoId();
+  req.assert('Target', 'target is not valid').notEmpty().isMongoId();
 
   var errors = req.validationErrors();
   if(errors) {
@@ -22,16 +22,16 @@ exports.createEdge = (req, res, next) => {
       return next(new createError.NotFound('Case not found'));
     }
 
-    var sourceVertex = currentCase.graph.vertices.id(req.body.source);
-    var targetVertex = currentCase.graph.vertices.id(req.body.target);
+    var sourceVertex = currentCase.Nodes.id(req.body.Source);
+    var targetVertex = currentCase.Nodes.id(req.body.Target);
 
     if(!sourceVertex || !targetVertex) {
       return next(new createError.NotFound('source/target not found'));
     }
 
-    currentCase.graph.edges.push({
-      source: sourceVertex._id,
-      target: targetVertex._id
+    currentCase.edges.push({
+      Source: SourceVertex._id,
+      Target: TargetVertex._id
     });
 
     currentCase.save((error) => {
@@ -55,7 +55,9 @@ exports.getAllEdges = (req, res, next) => {
       return next(new createError.NotFound('Case not found'));
     }
 
-    res.json(currentCase.graph.edges);
+    res.json({
+      Edges: currentCase.Edges
+    });
     next();
   });
 };
@@ -70,7 +72,7 @@ exports.getEdge = (req, res, next) => {
       return next(new createError.NotFound('Case not found'));
     }
 
-    var edge = currentCase.graph.edges.id(req.params.edgeId);
+    var edge = currentCase.Edges.id(req.params.EdgeId);
     if(!edge) {
       return next(new createError.NotFound('Edge not found'));
     }
@@ -93,18 +95,18 @@ exports.updateEdge = (req, res, next) => {
     }
 
     var tempEdge = null;
-    for(var i = 0; i < currentCase.graph.edges.length; i++) {
-      if(currentCase.graph.edges[i]._id == req.params.edgeId) {
-        tempEdge = currentCase.graph.edges[i];
-        var sourceVertex = currentCase.graph.vertices.id(req.body.source);
-        var targetVertex = currentCase.graph.vertices.id(req.body.target);
+    for(var i = 0; i < currentCase.Edges.length; i++) {
+      if(currentCase.Edges[i]._id == req.params.edgeId) {
+        tempEdge = currentCase.Edges[i];
+        var sourceVertex = currentCase.Nodes.id(req.body.Source);
+        var targetVertex = currentCase.Nodes.id(req.body.Target);
 
         if(!sourceVertex || !targetVertex) {
           return next(new createError.NotFound('source/target not found'));
         }
 
-        currentCase.graph.edges[i].source = sourceVertex._id || tempEdge.source;
-        currentCase.graph.edges[i].target = targetVertex._id || tempEdge.target;
+        currentCase.Edges[i].Source = sourceVertex._id || tempEdge.Source;
+        currentCase.Edges[i].Sarget = targetVertex._id || tempEdge.Target;
 
         currentCase.save((error) => {
           if(error) {
@@ -133,11 +135,11 @@ exports.removeEdge = (req, res, next) => {
     }
 
     var tempEdge = null;
-    for(var i = 0; i < currentCase.graph.edges.length; i++) {
-      if(currentCase.graph.edges[i]._id == req.params.edgeId) {
-        tempEdge = currentCase.graph.edges[i];
+    for(var i = 0; i < currentCase.Edges.length; i++) {
+      if(currentCase.Edges[i]._id == req.params.edgeId) {
+        tempEdge = currentCase.Edges[i];
         
-        currentCase.graph.edges.splice(i, 1);
+        currentCase.Edges.splice(i, 1);
         currentCase.save((error) => {
           if(error) {
             return next(new createError.BadRequest('Could not remove edge'));

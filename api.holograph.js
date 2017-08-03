@@ -24,6 +24,7 @@ app.use(expressValidator());
 app.use('/v1/cases', caseRouter);
 
 app.use((err, req, res, next) => {
+  console.log(JSON.stringify(err));
   return res.status(err.status).json(err);
 });
 
