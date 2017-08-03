@@ -29,7 +29,7 @@ exports.createEdge = (req, res, next) => {
       return next(new createError.NotFound('source/target not found'));
     }
 
-    currentCase.edges.push({
+    currentCase.Edges.push({
       Source: SourceVertex._id,
       Target: TargetVertex._id
     });
