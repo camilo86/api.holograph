@@ -6,7 +6,9 @@ var caseSchema = new mongoose.Schema({
 
   Nodes: [
     {
-        Name: { type: String }
+        Name: { type: String },
+        Type: { type: String },
+        Data: { type: Object }
     }
   ],
   Edges: [

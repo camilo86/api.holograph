@@ -9,6 +9,7 @@ var Case = require('./../models/case');
  */
 exports.createNode = (req, res, next) => {
   req.assert('Name', 'Name is not valid').notEmpty();
+  req.assert('Type', 'Type is not valid').notEmpty();
 
   var errors = req.validationErrors();
   if(errors) {
@@ -21,7 +22,9 @@ exports.createNode = (req, res, next) => {
     }
 
     currentCase.Nodes.push({
-      Name: req.body.Name
+      Name: req.body.Name,
+      Type: req.body.Type,
+      Data: req.body.Data
     });
 
     currentCase.save((error) => {
@@ -92,6 +95,8 @@ exports.updateNode = (req, res, next) => {
       if(currentCase.Nodes[i]._id == req.params.nodeId) {
         tempVertex = currentCase.Nodes[i];
         currentCase.Nodes[i].Name = req.body.Name || tempVertex.Name;
+        currentCase.Nodes[i].Type = req.body.Type || tempVertex.Type;
+        currentCase.Nodes[i].Data = req.body.Data || tempVertex.Data;
         currentCase.save((error) => {
           if(error) {
             return next(new createError.BadRequest('Could not update vertex'));
