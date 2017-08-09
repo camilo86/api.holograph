@@ -22,10 +22,10 @@ exports.createEdge = (req, res, next) => {
       return next(new createError.NotFound('Case not found'));
     }
 
-    var sourceVertex = currentCase.Nodes.id(req.body.Source);
-    var targetVertex = currentCase.Nodes.id(req.body.Target);
+    var SourceVertex = currentCase.Nodes.id(req.body.Source);
+    var TargetVertex = currentCase.Nodes.id(req.body.Target);
 
-    if(!sourceVertex || !targetVertex) {
+    if(!SourceVertex || !TargetVertex) {
       return next(new createError.NotFound('source/target not found'));
     }
 

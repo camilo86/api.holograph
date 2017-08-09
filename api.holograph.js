@@ -6,7 +6,7 @@ var helmet = require('helmet');
 var express = require('express');
 var app = express();
 
-mongoose.connect(process.env.DATABASE || 'mongodb://localhost:27017/holograph', (error) => {
+mongoose.connect('mongodb://holographdb:p0OXcbnJaZGeywY0MXXIwTlc93Vzkl3xSkY0J2deB9ICdJRXyFuG1bVUGFXnCZGK92zGIUJlHVjT7ltsQW7Aww==@holographdb.documents.azure.com:10255/?ssl=true' || 'mongodb://localhost:27017/holograph', (error) => {
   if(error) {
     throw error;
   }
